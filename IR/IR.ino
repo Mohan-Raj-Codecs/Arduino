@@ -1,27 +1,41 @@
-int CLK=8;
-int dat=A0;
+int inp=A0;
+float input,volt;
+int out=10;
+bool on = false;
+
+
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
-  pinMode(CLK,OUTPUT);
-  pinMode(dat,OUTPUT);
-  pinMode(1,OUTPUT);
-  pinMode(2,OUTPUT);
-  pinMode(3,OUTPUT);
-  pinMode(4,OUTPUT);
-  pinMode(5,OUTPUT);
+  pinMode(inp,INPUT);
+  pinMode(out,OUTPUT);
+  bool inv(bool oni);  //Prototype Declaration
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  digitalWrite(CLK,HIGH);
-  delay(100);
-  digitalWrite(CLK,LOW);
-  delay(100);
-  analogWrite(dat,200);
-  digitalWrite(1,HIGH);
-  digitalWrite(2,HIGH);
-  digitalWrite(3,HIGH);
-  digitalWrite(4,HIGH);
-  digitalWrite(5,HIGH);
+  input=analogRead(inp);
+  volt=(input*5.0)/1024.0;
+  //Serial.print("voltage is : ");
+  //Serial.println(volt);
+    
+  if(volt<1){
+    on=inv(on);
+    delay(100);
+    }
+  
+  if(on){
+    digitalWrite(out,HIGH);}
+  else{
+    digitalWrite(out,LOW);}
+
+}
+
+
+bool inv(bool oni){
+  if(oni)
+    oni=false;
+  else
+    oni=true;   
+  return oni;
 }
