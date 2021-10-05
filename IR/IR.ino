@@ -1,6 +1,6 @@
 int inp=A0;
 float input,volt;
-int out=10;
+int out=9;
 bool on = false;
 
 
