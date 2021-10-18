@@ -1,6 +1,6 @@
 int inp=A0;
 float input,volt;
-int out=13;
+int out=9;
 int bulb=A1;
 void setup() {
   // put your setup code here, to run once:
