@@ -1,3 +1,5 @@
+
+
 int inp=A0;
 float input,volt;
 int out=9;
