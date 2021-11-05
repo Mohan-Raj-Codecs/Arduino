@@ -37,9 +37,10 @@ void loop() {
     StaticJsonDocument<32> doc;
     DeserializationError error = deserializeJson(doc, payload);
     if (error) {
-    Serial.print(F("deserializeJson() failed: "));
-    Serial.println(error.f_str());
-    return;
+      Serial.println("No Internet Access :(");
+      Serial.print("deserializeJson() failed: ");
+      Serial.println(error.f_str());
+      return;
     }
     bool oni = doc["on"];
     if(oni){
