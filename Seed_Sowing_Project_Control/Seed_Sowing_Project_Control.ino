@@ -4,7 +4,7 @@
 
 int IR_RECEIVE_PIN = 11;
 
-//Var here
+//Vars
 const int voli4 = 8208; const int vold4 = 8209; const int rch4 = 8224; const int lch4 = 8225; 
 const int ok4 = 8240; const int power4 = 8204; const int mute4 = 8205;
 int ir_code = 0, last_ms = millis();
@@ -57,8 +57,8 @@ void loop() {
       case mute4: Serial.println("Mute"); seed=true; wheel=true; spray=false; grass=false; break;
       default: Serial.println("Unknown Button");
     }
-    p_data();
-    motor_update();
+    print_data();
+    update_motor();
     
     cont:;
     IrReceiver.resume();                            // Prepare for the next value
@@ -86,7 +86,7 @@ bool isRepeat(int current_code){
   }
 }
 
-void p_data(){
+void print_data(){
   Serial.print("\nwheel: ");
   Serial.println(wheel);
   Serial.print("spray: ");
@@ -98,7 +98,7 @@ void p_data(){
   Serial.println();
 }
 
-void motor_update(){
+void update_motor(){
   digitalWrite(wheel_motor,(wheel)?HIGH:LOW);
   digitalWrite(spray_motor,(spray)?HIGH:LOW);
   digitalWrite(seed_motor,(seed)?HIGH:LOW);
