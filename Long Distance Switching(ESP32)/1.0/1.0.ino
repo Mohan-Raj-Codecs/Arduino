@@ -6,7 +6,7 @@
 #define led 19  //Optoisolator Activator
 char password[]="mohanraj";
 char ssid_name[]="Redmi Note 4";
-char url[]="http://192.168.43.105/data.json";
+char url[]="http://localhost/data.json";
 float waiter = 0.5;
 
 //Prototypes

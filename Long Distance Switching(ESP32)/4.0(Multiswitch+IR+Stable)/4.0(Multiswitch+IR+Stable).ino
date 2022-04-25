@@ -1,9 +1,9 @@
-#define MARK_EXCESS_MICROS    20 // recommended for the cheap modules for memory protect
-
-#include <IRremote.h> //Remote
+#include <IRremote.h>
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
 #include <WiFi.h>
+
+#define MARK_EXCESS_MICROS    20 // recommended for the cheap modules for memory protect
 
 
 //Config Variables
@@ -17,7 +17,7 @@ int led2 = 14;
 int led3 = 27;                                  //Optoisolator Activator
 char password[] = "mohanraj";                   //Wifi Password
 char ssid_name[] = "Redmi Note 4";              //Wifi Name
-char url[] = "http://localhost/data.json"; //URL to fetch
+char url[] = "http://localhost/api/data"; //URL to fetch
 float waiter = 1;                               //Fetch Delay in Seconds
 
 //Discrete vars
@@ -58,6 +58,8 @@ void setup() {
 
 }
 
+
+
 void loop() {
   //IR_Code_Functions here
   if (IrReceiver.decode()) {  // Grab an IR code
@@ -83,7 +85,7 @@ void loop() {
 
     if (httpCode > 0) {
       payload = client.getString();
-      Serial.println(payload);
+     // Serial.println(payload);
     } else {
       Serial.println("Error on HTTP Request :(");
       Serial.println("Status Code : " + String(httpCode));
@@ -111,6 +113,8 @@ void loop() {
   }
   client.end();
 }
+
+
 
 void Wifi_connect(char * ssid, char * password) {
   WiFi.begin(ssid, password);
@@ -160,33 +164,51 @@ int req(String url){
 }
 
 void Handle_ir_code(int ir_code){
-  if(ir_code==-133697792){
+  if(ir_code==302336){
       on0=inv(on0);
+      update_led();
       if(on0)
         req("http://localhost/api/flip/on0/true");
       else
         req("http://localhost/api/flip/on0/false");
     }
-    if(ir_code==-116986112){
+    if(ir_code==302337){
       on1=inv(on1);
       if(on1)
         req("http://localhost/api/flip/on1/true");
       else
         req("http://localhost/api/flip/on1/false");
     }
-    if(ir_code==-100274432){
+    if(ir_code==302338){
       on2=inv(on2);
+      update_led();
       if(on2)
         req("http://localhost/api/flip/on2/true");
       else
         req("http://localhost/api/flip/on2/false");
     }
-    if(ir_code==-83562752){
+    if(ir_code==302339){
       on3=inv(on3);
+      update_led();
       if(on3)
         req("http://localhost/api/flip/on3/true");
       else
         req("http://localhost/api/flip/on3/false");
     }
+    if(ir_code==302357){
+      on0=false;on1=false;on2=false;on3=false;
+      update_led();
+      req("http://localhost/api/flip/on0/false");
+      req("http://localhost/api/flip/on1/false");
+      req("http://localhost/api/flip/on2/false");
+      req("http://localhost/api/flip/on3/false");
+    }
+    if(ir_code==302347){
+      on0=true;on1=true;on2=true;on3=true;
+      update_led();
+      req("http://localhost/api/flip/on0/true");
+      req("http://localhost/api/flip/on1/true");
+      req("http://localhost/api/flip/on2/true");
+      req("http://localhost/api/flip/on3/true");
+    }
 }
-

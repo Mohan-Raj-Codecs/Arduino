@@ -9,7 +9,7 @@ int led1 = 19;
 int led2 = 21;                                  //Optoisolator Activator
 char password[] = "mohanraj";                   //Wifi Password
 char ssid_name[] = "Redmi Note 4";              //Wifi Name
-char url[] = "http://192.168.43.105/data.json"; //URL to fetch
+char url[] = "http://localhost/data.json"; //URL to fetch
 float waiter = 1;                               //Fetch Delay in Seconds
 
 //Discrete vars
