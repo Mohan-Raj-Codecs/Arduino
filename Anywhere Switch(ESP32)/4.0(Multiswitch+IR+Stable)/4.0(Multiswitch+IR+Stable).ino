@@ -17,8 +17,9 @@ int led2 = 14;
 int led3 = 27;                                  //Optoisolator Activator
 char password[] = "mohanraj";                   //Wifi Password
 char ssid_name[] = "Redmi Note 4";              //Wifi Name
-char url[] = "http://localhost/api/data"; //URL to fetch
+char url[] = "http://52.66.239.139:81/api/data";       //URL to fetch
 float waiter = 1;                               //Fetch Delay in Seconds
+int internet_access = 0;
 
 //Discrete vars
 int ir_code = 0, last_ms = millis(); //Remote
@@ -85,16 +86,19 @@ void loop() {
 
     if (httpCode > 0) {
       payload = client.getString();
+      internet_access = 1;
      // Serial.println(payload);
     } else {
       Serial.println("Error on HTTP Request :(");
       Serial.println("Status Code : " + String(httpCode));
+      internet_access = 0;
     }
     DeserializationError error = deserializeJson(doc, payload);
     if (error) {
-      Serial.println("No Internet Access :(");
+      Serial.println("No Internet Access :( or Check your algorithm array size declarations");
       Serial.print("deserializeJson() failed: ");
       Serial.println(error.f_str());
+      internet_access = 0;
       return;
     }
     on0 = doc["on0"];
@@ -167,48 +171,56 @@ void Handle_ir_code(int ir_code){
   if(ir_code==302336){
       on0=inv(on0);
       update_led();
+      (internet_access)?:goto skip_send_data; //Skip If There is no internet
       if(on0)
-        req("http://localhost/api/flip/on0/true");
+        req("http://52.66.239.139:81/api/flip/on0/true");
       else
-        req("http://localhost/api/flip/on0/false");
+        req("http://52.66.239.139:81/api/flip/on0/false");
     }
     if(ir_code==302337){
       on1=inv(on1);
+      update_led();
+      (internet_access)?:goto skip_send_data; //Skip If There is no internet
       if(on1)
-        req("http://localhost/api/flip/on1/true");
+        req("http://52.66.239.139:81/api/flip/on1/true");
       else
-        req("http://localhost/api/flip/on1/false");
+        req("http://52.66.239.139:81/api/flip/on1/false");
     }
     if(ir_code==302338){
       on2=inv(on2);
       update_led();
+      (internet_access)?:goto skip_send_data; //Skip If There is no internet
       if(on2)
-        req("http://localhost/api/flip/on2/true");
+        req("http://52.66.239.139:81/api/flip/on2/true");
       else
-        req("http://localhost/api/flip/on2/false");
+        req("http://52.66.239.139:81/api/flip/on2/false");
     }
     if(ir_code==302339){
       on3=inv(on3);
       update_led();
+      (internet_access)?:goto skip_send_data; //Skip If There is no internet
       if(on3)
-        req("http://localhost/api/flip/on3/true");
+        req("http://52.66.239.139:81/api/flip/on3/true");
       else
-        req("http://localhost/api/flip/on3/false");
+        req("http://52.66.239.139:81/api/flip/on3/false");
     }
     if(ir_code==302357){
       on0=false;on1=false;on2=false;on3=false;
       update_led();
-      req("http://localhost/api/flip/on0/false");
-      req("http://localhost/api/flip/on1/false");
-      req("http://localhost/api/flip/on2/false");
-      req("http://localhost/api/flip/on3/false");
+      (internet_access)?:goto skip_send_data; //Skip If There is no internet
+      req("http://52.66.239.139:81/api/flip/on0/false");
+      req("http://52.66.239.139:81/api/flip/on1/false");
+      req("http://52.66.239.139:81/api/flip/on2/false");
+      req("http://52.66.239.139:81/api/flip/on3/false");
     }
     if(ir_code==302347){
       on0=true;on1=true;on2=true;on3=true;
       update_led();
-      req("http://localhost/api/flip/on0/true");
-      req("http://localhost/api/flip/on1/true");
-      req("http://localhost/api/flip/on2/true");
-      req("http://localhost/api/flip/on3/true");
+      (internet_access)?:goto skip_send_data; //Skip If There is no internet
+      req("http://52.66.239.139:81/api/flip/on0/true");
+      req("http://52.66.239.139:81/api/flip/on1/true");
+      req("http://52.66.239.139:81/api/flip/on2/true");
+      req("http://52.66.239.139:81/api/flip/on3/true");
     }
+    skip_send_data:;
 }
