@@ -17,7 +17,7 @@ int led2 = 14;
 int led3 = 27;                                  //Optoisolator Activator
 char password[] = "mohanraj";                   //Wifi Password
 char ssid_name[] = "Redmi Note 4";              //Wifi Name
-char url[] = "http://52.66.239.139:81/api/data";       //URL to fetch
+char url[] = "http://localhost:81/api/data";       //URL to fetch
 float waiter = 1;                               //Fetch Delay in Seconds
 int internet_access = 0;
 
@@ -173,54 +173,54 @@ void Handle_ir_code(int ir_code){
       update_led();
       (internet_access)?:goto skip_send_data; //Skip If There is no internet
       if(on0)
-        req("http://52.66.239.139:81/api/flip/on0/true");
+        req("http://localhost:81/api/flip/on0/true");
       else
-        req("http://52.66.239.139:81/api/flip/on0/false");
+        req("http://localhost:81/api/flip/on0/false");
     }
     if(ir_code==302337){
       on1=inv(on1);
       update_led();
       (internet_access)?:goto skip_send_data; //Skip If There is no internet
       if(on1)
-        req("http://52.66.239.139:81/api/flip/on1/true");
+        req("http://localhost:81/api/flip/on1/true");
       else
-        req("http://52.66.239.139:81/api/flip/on1/false");
+        req("http://localhost:81/api/flip/on1/false");
     }
     if(ir_code==302338){
       on2=inv(on2);
       update_led();
       (internet_access)?:goto skip_send_data; //Skip If There is no internet
       if(on2)
-        req("http://52.66.239.139:81/api/flip/on2/true");
+        req("http://localhost:81/api/flip/on2/true");
       else
-        req("http://52.66.239.139:81/api/flip/on2/false");
+        req("http://localhost:81/api/flip/on2/false");
     }
     if(ir_code==302339){
       on3=inv(on3);
       update_led();
       (internet_access)?:goto skip_send_data; //Skip If There is no internet
       if(on3)
-        req("http://52.66.239.139:81/api/flip/on3/true");
+        req("http://localhost:81/api/flip/on3/true");
       else
-        req("http://52.66.239.139:81/api/flip/on3/false");
+        req("http://localhost:81/api/flip/on3/false");
     }
     if(ir_code==302357){
       on0=false;on1=false;on2=false;on3=false;
       update_led();
       (internet_access)?:goto skip_send_data; //Skip If There is no internet
-      req("http://52.66.239.139:81/api/flip/on0/false");
-      req("http://52.66.239.139:81/api/flip/on1/false");
-      req("http://52.66.239.139:81/api/flip/on2/false");
-      req("http://52.66.239.139:81/api/flip/on3/false");
+      req("http://localhost:81/api/flip/on0/false");
+      req("http://localhost:81/api/flip/on1/false");
+      req("http://localhost:81/api/flip/on2/false");
+      req("http://localhost:81/api/flip/on3/false");
     }
     if(ir_code==302347){
       on0=true;on1=true;on2=true;on3=true;
       update_led();
       (internet_access)?:goto skip_send_data; //Skip If There is no internet
-      req("http://52.66.239.139:81/api/flip/on0/true");
-      req("http://52.66.239.139:81/api/flip/on1/true");
-      req("http://52.66.239.139:81/api/flip/on2/true");
-      req("http://52.66.239.139:81/api/flip/on3/true");
+      req("http://localhost:81/api/flip/on0/true");
+      req("http://localhost:81/api/flip/on1/true");
+      req("http://localhost:81/api/flip/on2/true");
+      req("http://localhost:81/api/flip/on3/true");
     }
     skip_send_data:;
 }
