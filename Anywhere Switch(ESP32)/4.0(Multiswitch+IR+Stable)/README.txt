@@ -14,7 +14,7 @@ float waiter = 1;                                    // Fetch Delay    Line 13
 Requirements : 
 	Libraries : 
 			#ArduinoJSON                     // To Install Refer : https://www.youtube.com/watch?v=1XjwH4Gckpk&t=145s
-			#IRremote                        // To Install Refer : https://www.youtube.com/watch?v=3jeSfsnQOWk
+			#IRremote3.0                        // To Install Refer : https://www.youtube.com/watch?v=3jeSfsnQOWk
 
 	Boards    : #ESP32                           // To Install Refer : https://www.youtube.com/watch?v=GUTpaY1YaXo
 
